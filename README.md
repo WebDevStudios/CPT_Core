@@ -5,6 +5,8 @@ A tool to make custom post type registration just a bit simpler. Automatically r
 
 Future version will include a method for registering the custom icons for wp-admin (vs the default pin icon).
 
+Also see [Taxonomy_Core](https://github.com/jtsternberg/Taxonomy_Core).
+
 #### Example Usage:
 ```php
 <?php
