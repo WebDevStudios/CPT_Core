@@ -9,7 +9,9 @@ Future version will include a method for registering the custom icons for wp-adm
 ```php
 <?php
 
-// Load CPT helper.
+/**
+ * Load CPT_Core.
+ */
 require_once 'CPT_Core/CPT_Core.php';
 
 /**
