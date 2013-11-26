@@ -3,6 +3,7 @@
  * Plugin class for generating Custom Post Types.
  * @version 0.2.0
  * @todo    Fix cpt_icons method
+ * @author  Justin Sternberg
  */
 class CPT_Core {
 
