@@ -49,11 +49,11 @@ class CPT_Core {
 
 		if ( is_string( $cpt ) ) {
 			$this->singular  = $cpt;
-			$this->plural     = $cpt .'s';
+			$this->plural    = $cpt .'s';
 			$this->post_type = sanitize_title( $this->plural );
 		} elseif ( is_array( $cpt ) && $cpt[0] ) {
 			$this->singular  = $cpt[0];
-			$this->plural     = !isset( $cpt[1] ) || !is_string( $cpt[1] ) ? $cpt[0] .'s' : $cpt[1];
+			$this->plural    = !isset( $cpt[1] ) || !is_string( $cpt[1] ) ? $cpt[0] .'s' : $cpt[1];
 			$this->post_type = !isset( $cpt[2] ) || !is_string( $cpt[2] ) ? sanitize_title( $this->plural ) : $cpt[2];
 		} else {
 			// Something went wrong.
@@ -197,9 +197,9 @@ class CPT_Core {
 	 */
 	function cpt_icons() {
 		$screen = get_current_screen()->id;
-		$file = 'lib/css/'. $this->post_type .'.png';
-		$path = 'lib/css/'. $this->post_type .'.png';
-		$img = file_exists( $file ) ? $path : null;
+		$file   = 'lib/css/'. $this->post_type .'.png';
+		$path   = 'lib/css/'. $this->post_type .'.png';
+		$img    = file_exists( $file ) ? $path : null;
 
 ?>
 <style type="text/css">
@@ -247,8 +247,8 @@ class CPT_Core {
 	public function post_type( $key = 'post_type' ) {
 
 		return isset( $this->$key ) ? $this->$key : array(
-			'singular' => $this->singular,
-			'plural' => $this->plural,
+			'singular'  => $this->singular,
+			'plural'    => $this->plural,
 			'post_type' => $this->post_type,
 		);
 	}
