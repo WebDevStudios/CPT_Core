@@ -257,4 +257,26 @@ class CPT_Core {
 			'registered' => $this->registered,
 		);
 	}
+
+	/**
+	 * Magic method that echos the CPT registered name when treated like a string
+	 * @since  0.2.0
+	 * @return string CPT registered name
+	 */
+	public function __toString() {
+		return $this->post_type();
+	}
+}
+
+if ( !function_exists( 'register_via_cpt_core' ) ) {
+	/**
+	 * Helper function to register a CPT via the CPT_Core class. An extended class is preferred.
+	 * @since 0.2.0
+	 * @param mixed     $cpt           Singular CPT name, or array with Singular, Plural, and Registered
+	 * @param array     $arg_overrides CPT registration override arguments
+	 * @return CPT_Core                An instance of the class.
+	 */
+	function register_via_cpt_core( $cpt, $arg_overrides = array() ) {
+		return new CPT_Core( $cpt, $arg_overrides );
+	}
 }
