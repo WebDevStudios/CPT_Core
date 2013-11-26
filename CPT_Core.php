@@ -3,7 +3,6 @@
  * Plugin class for generating Custom Post Types.
  * @version 0.2.0
  * @todo    Fix cpt_icons method
- * @todo    Remove redundant $defaults args for register_post_type
  */
 class CPT_Core {
 
