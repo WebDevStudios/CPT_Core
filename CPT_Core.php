@@ -1,25 +1,52 @@
 <?php
 /**
  * Plugin class for generating Custom Post Types.
- * @todo  Update documentation
- * @todo  Fix cpt_icons method
- * @todo  Remove redundant $defaults args for register_post_type
+ * @version 0.2.0
+ * @todo    Fix cpt_icons method
+ * @todo    Remove redundant $defaults args for register_post_type
  */
 class CPT_Core {
 
+	/**
+	 * Singlur CPT label
+	 * @var string
+	 */
 	private $post_type;
-	public $single;
+
+	/**
+	 * Plural CPT label
+	 * @var string
+	 */
 	private $plural;
-	public $plurals;
+
+	/**
+	 * Registered CPT name/slug
+	 * @var string
+	 */
 	private $registered;
-	public $slug;
-	private $args;
-	private $allargs = array();
 
-	public function __construct( $cpt, $args = array() ) {
+	/**
+	 * Optional argument overrides passed in from the constructor.
+	 * @var array
+	 */
+	private $arg_overrides = array();
 
-		if( ! $cpt )
-			wp_die( 'No Post Type given' );
+	/**
+	 * All CPT registration arguments
+	 * @var array
+	 */
+	private $cpt_args = array();
+
+	/**
+	 * Constructor. Builds our CPT.
+	 * @since 0.1.0
+	 * @param mixed  $cpt           Singular CPT name, or array with Singular, Plural, and Registered
+	 * @param array  $arg_overrides CPT registration override arguments
+	 */
+	public function __construct( $cpt, $arg_overrides = array() ) {
+
+		if( ! $cpt ) // If they passed in false or something odd
+			wp_die( 'Post type required for the first parameter in CPT_Core.' );
 
 		if ( is_string( $cpt ) ) {
 			$this->post_type  = $cpt;
@@ -30,67 +57,84 @@ class CPT_Core {
 			$this->plural     = !isset( $cpt[1] ) || !is_string( $cpt[1] ) ? $cpt[0] .'s' : $cpt[1];
 			$this->registered = !isset( $cpt[2] ) || !is_string( $cpt[2] ) ? sanitize_title( $this->plural ) : $cpt[2];
 		} else {
-			wp_die( 'Post Type incorrectly registered' );
+			// Something went wrong.
+			wp_die( 'There was an error with the custom post type in CPT_Core.' );
 		}
 
-		$this->single  = $this->post_type;
-		$this->plurals = $this->plural;
-		$this->slug    = $this->registered;
-		$this->args    = (array) $args;
+		$this->arg_overrides = (array) $arg_overrides;
 
-		add_action( 'init', array( $this, 'cpt_loop' ) );
+		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_filter( 'post_updated_messages', array( $this, 'messages' ) );
-		add_filter( 'manage_edit-'. $this->slug .'_columns', array( $this, 'columns' ) );
-		$h = isset( $args['hierarchical'] ) && $args['hierarchical'] ? 'pages' : 'posts';
+		add_filter( 'manage_edit-'. $this->registered .'_columns', array( $this, 'columns' ) );
+		// Different column registration for pages/posts
+		$h = isset( $arg_overrides['hierarchical'] ) && $arg_overrides['hierarchical'] ? 'pages' : 'posts';
 		add_action( "manage_{$h}_custom_column", array( $this, 'columns_display' ) );
 		add_filter( 'enter_title_here', array( $this, 'title' ) );
-		add_action( 'admin_head', array( $this, 'cpt_icons' ) );
+		// add_action( 'admin_head', array( $this, 'cpt_icons' ) );
 	}
 
+	/**
+	 * Gets the passed in arguments combined with our defaults.
+	 * @since  0.2.0
+	 * @return array  CPT arguments array
+	 */
 	public function get_args() {
-		if ( ! empty( $this->allargs ) )
-			return $this->allargs;
+		if ( ! empty( $this->cpt_args ) )
+			return $this->cpt_args;
 
-		//set default custom post type options
-		$defaults = array(
-			'labels' => array(
-				'name' => $this->plural,
-				'singular_name' => $this->post_type,
-				'add_new' => 'Add New ' .$this->post_type,
-				'add_new_item' => 'Add New ' .$this->post_type,
-				'edit_item' => 'Edit ' .$this->post_type,
-				'new_item' => 'New ' .$this->post_type,
-				'all_items' => 'All ' .$this->plural,
-				'view_item' => 'View ' .$this->post_type,
-				'search_items' => 'Search ' .$this->plural,
-				'not_found' =>  'No ' .$this->plural .' found',
-				'not_found_in_trash' => 'No ' .$this->plural .' found in Trash',
-				'parent_item_colon' => '',
-				'menu_name' => $this->plural
-			),
-			'public' => true,
-			'publicly_queryable' => true,
-			'show_ui' => true,
-			'show_in_menu' => true,
-			'query_var' => true,
-			'rewrite' => true,
-			'capability_type' => 'post',
-			'has_archive' => true,
-			'hierarchical' => false,
-			'menu_position' => null,
-			'supports' => array( 'title', 'editor', 'excerpt' )
+		// Generate CPT labels
+		$labels = array(
+			'name'               => $this->plural,
+			'singular_name'      => $this->post_type,
+			'add_new'            => sprintf( __( 'Add New %s' ), $this->post_type ),
+			'add_new_item'       => sprintf( __( 'Add New %s' ), $this->post_type ),
+			'edit_item'          => sprintf( __( 'Edit %s' ), $this->post_type ),
+			'new_item'           => sprintf( __( 'New %s' ), $this->post_type ),
+			'all_items'          => sprintf( __( 'All %s' ), $this->plural ),
+			'view_item'          => sprintf( __( 'View %s' ), $this->post_type ),
+			'search_items'       => sprintf( __( 'Search %s' ), $this->plural ),
+			'not_found'          => sprintf( __( 'No %s' ), $this->plural ),
+			'not_found_in_trash' => sprintf( __( 'No %s found in Trash' ), $this->plural ),
+			'parent_item_colon'  => isset( $this->arg_overrides['hierarchical'] ) && $this->arg_overrides['hierarchical'] ? sprintf( __( 'Parent %s:' ), $this->post_type ) : null,
+			'menu_name'          => $this->plural,
 		);
 
-		$this->allargs = wp_parse_args( $this->args, $defaults );
-		return $this->allargs;
+		// Set default CPT parameters
+		$defaults = array(
+			'labels'             => $labels,
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'has_archive'        => true,
+			'supports'           => array( 'title', 'editor', 'excerpt' ),
+		);
+
+		$this->cpt_args = wp_parse_args( $this->arg_overrides, $defaults );
+		return $this->cpt_args;
 	}
 
-	public function cpt_loop() {
+	/**
+	 * Actually registers our CPT with the merged arguments
+	 * @since  0.1.0
+	 */
+	public function register_post_type() {
+		// Register our CPT
+		$args = register_post_type( $this->registered, $this->get_args() );
+		// If error, yell about it.
+		if ( is_wp_error( $args ) )
+			wp_die( $args->get_error_message() );
 
-		register_post_type( $this->registered, $this->get_args() );
-
+		// Success. Set args to what WP returns
+		$this->cpt_args = $args;
 	}
 
+	/**
+	 * Modies CPT based messages to include our CPT labels
+	 * @since  0.1.0
+	 * @param  array  $messages Array of messages
+	 * @return array            Modied messages array
+	 */
 	public function messages( $messages ) {
 		global $post, $post_ID;
 
@@ -114,23 +158,44 @@ class CPT_Core {
 
 	}
 
+	/**
+	 * Registers admin columns to display. To be overridden by an extended class.
+	 * @since  0.1.0
+	 * @param  array  $columns Array of registered column names/labels
+	 * @return array           Modified array
+	 */
 	public function columns( $columns ) {
+		// placeholder
 		return $columns;
 	}
 
+	/**
+	 * Handles admin column display. To be overridden by an extended class.
+	 * @since  0.1.0
+	 * @param  array  $column Array of registered column names
+	 */
 	public function columns_display( $column ) {
 		// placeholder
 	}
 
+	/**
+	 * Filter CPT title entry placeholder text
+	 * @since  0.1.0
+	 * @param  string $title Original placeholder text
+	 * @return string        Modifed placeholder text
+	 */
 	public function title( $title ){
 
 		$screen = get_current_screen();
 		if ( isset( $screen->post_type ) && $screen->post_type == $this->registered )
-			return $this->post_type.' Name';
+			return sprintf( __( '%s Title' ), $this->post_type );
 
 		return $title;
 	}
 
+	/**
+	 * @todo Create a good method for finding & adding CPT images.
+	 */
 	function cpt_icons() {
 		$screen = get_current_screen()->id;
 		$file = 'lib/css/'. $this->registered .'.png';
@@ -174,4 +239,22 @@ class CPT_Core {
 <?php
 	}
 
+	/**
+	 * Provides access to private class properties.
+	 * @since  0.2.0
+	 * @param  boolean $registered_name Whether to just return the registered name
+	 * @return mixed                    Post type registered name or array of singular, plural and registered name
+	 */
+	public function post_type( $registered_name = true ) {
+
+		// by default, just send back the registered CPT name/slug
+		if ( $registered_name )
+			return $this->registered;
+
+		return array(
+			'singular' => $this->post_type,
+			'plural' => $this->plural,
+			'registered' => $this->registered,
+		);
+	}
 }
