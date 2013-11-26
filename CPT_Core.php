@@ -38,6 +38,12 @@ class CPT_Core {
 	private $cpt_args = array();
 
 	/**
+	 * An array of each CPT_Core object registered with this class
+	 * @var array
+	 */
+	private static $custom_post_types = array();
+
+	/**
 	 * Constructor. Builds our CPT.
 	 * @since 0.1.0
 	 * @param mixed  $cpt           Singular CPT name, or array with Singular, Plural, and Registered
@@ -127,6 +133,9 @@ class CPT_Core {
 
 		// Success. Set args to what WP returns
 		$this->cpt_args = $args;
+
+		// Add this post type to our custom_post_types array
+		self::$custom_post_types[ $this->post_type ] = $this;
 	}
 
 	/**
@@ -252,6 +261,19 @@ class CPT_Core {
 			'plural'    => $this->plural,
 			'post_type' => $this->post_type,
 		);
+	}
+
+	/**
+	 * Provides access to all CPT_Core taxonomy objects registered via this class.
+	 * @since  0.1.0
+	 * @param  string $post_type Specific CPT_Core object to return, or 'true' to specify only names.
+	 * @return mixed             Specific CPT_Core object or array of all
+	 */
+	public function custom_post_types( $post_type = '' ) {
+		if ( $post_type === true && ! empty( self::$custom_post_types ) ) {
+			return array_keys( self::$custom_post_types );
+		}
+		return isset( self::$custom_post_types[ $post_type ] ) ? self::$custom_post_types[ $post_type ] : self::$custom_post_types;
 	}
 
 	/**
