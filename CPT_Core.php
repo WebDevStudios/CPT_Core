@@ -10,7 +10,7 @@ class CPT_Core {
 	 * Singlur CPT label
 	 * @var string
 	 */
-	private $post_type;
+	private $singular;
 
 	/**
 	 * Plural CPT label
@@ -22,7 +22,7 @@ class CPT_Core {
 	 * Registered CPT name/slug
 	 * @var string
 	 */
-	private $registered;
+	private $post_type;
 
 	/**
 	 * Optional argument overrides passed in from the constructor.
@@ -48,13 +48,13 @@ class CPT_Core {
 			wp_die( 'Post type required for the first parameter in CPT_Core.' );
 
 		if ( is_string( $cpt ) ) {
-			$this->post_type  = $cpt;
+			$this->singular  = $cpt;
 			$this->plural     = $cpt .'s';
-			$this->registered = sanitize_title( $this->plural );
+			$this->post_type = sanitize_title( $this->plural );
 		} elseif ( is_array( $cpt ) && $cpt[0] ) {
-			$this->post_type  = $cpt[0];
+			$this->singular  = $cpt[0];
 			$this->plural     = !isset( $cpt[1] ) || !is_string( $cpt[1] ) ? $cpt[0] .'s' : $cpt[1];
-			$this->registered = !isset( $cpt[2] ) || !is_string( $cpt[2] ) ? sanitize_title( $this->plural ) : $cpt[2];
+			$this->post_type = !isset( $cpt[2] ) || !is_string( $cpt[2] ) ? sanitize_title( $this->plural ) : $cpt[2];
 		} else {
 			// Something went wrong.
 			wp_die( 'There was an error with the custom post type in CPT_Core.' );
@@ -64,7 +64,7 @@ class CPT_Core {
 
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_filter( 'post_updated_messages', array( $this, 'messages' ) );
-		add_filter( 'manage_edit-'. $this->registered .'_columns', array( $this, 'columns' ) );
+		add_filter( 'manage_edit-'. $this->post_type .'_columns', array( $this, 'columns' ) );
 		// Different column registration for pages/posts
 		$h = isset( $arg_overrides['hierarchical'] ) && $arg_overrides['hierarchical'] ? 'pages' : 'posts';
 		add_action( "manage_{$h}_custom_column", array( $this, 'columns_display' ) );
@@ -84,17 +84,17 @@ class CPT_Core {
 		// Generate CPT labels
 		$labels = array(
 			'name'               => $this->plural,
-			'singular_name'      => $this->post_type,
-			'add_new'            => sprintf( __( 'Add New %s' ), $this->post_type ),
-			'add_new_item'       => sprintf( __( 'Add New %s' ), $this->post_type ),
-			'edit_item'          => sprintf( __( 'Edit %s' ), $this->post_type ),
-			'new_item'           => sprintf( __( 'New %s' ), $this->post_type ),
+			'singular_name'      => $this->singular,
+			'add_new'            => sprintf( __( 'Add New %s' ), $this->singular ),
+			'add_new_item'       => sprintf( __( 'Add New %s' ), $this->singular ),
+			'edit_item'          => sprintf( __( 'Edit %s' ), $this->singular ),
+			'new_item'           => sprintf( __( 'New %s' ), $this->singular ),
 			'all_items'          => sprintf( __( 'All %s' ), $this->plural ),
-			'view_item'          => sprintf( __( 'View %s' ), $this->post_type ),
+			'view_item'          => sprintf( __( 'View %s' ), $this->singular ),
 			'search_items'       => sprintf( __( 'Search %s' ), $this->plural ),
 			'not_found'          => sprintf( __( 'No %s' ), $this->plural ),
 			'not_found_in_trash' => sprintf( __( 'No %s found in Trash' ), $this->plural ),
-			'parent_item_colon'  => isset( $this->arg_overrides['hierarchical'] ) && $this->arg_overrides['hierarchical'] ? sprintf( __( 'Parent %s:' ), $this->post_type ) : null,
+			'parent_item_colon'  => isset( $this->arg_overrides['hierarchical'] ) && $this->arg_overrides['hierarchical'] ? sprintf( __( 'Parent %s:' ), $this->singular ) : null,
 			'menu_name'          => $this->plural,
 		);
 
@@ -119,7 +119,7 @@ class CPT_Core {
 	 */
 	public function register_post_type() {
 		// Register our CPT
-		$args = register_post_type( $this->registered, $this->get_args() );
+		$args = register_post_type( $this->post_type, $this->get_args() );
 		// If error, yell about it.
 		if ( is_wp_error( $args ) )
 			wp_die( $args->get_error_message() );
@@ -137,21 +137,21 @@ class CPT_Core {
 	public function messages( $messages ) {
 		global $post, $post_ID;
 
-		$messages[$this->post_type] = array(
+		$messages[$this->singular] = array(
 			0 => '', // Unused. Messages start at index 1.
-			1 => sprintf( __( '%1$s updated. <a href="%2$s">View %1$s</a>' ), $this->post_type, esc_url( get_permalink( $post_ID ) ) ),
+			1 => sprintf( __( '%1$s updated. <a href="%2$s">View %1$s</a>' ), $this->singular, esc_url( get_permalink( $post_ID ) ) ),
 			2 => __( 'Custom field updated.' ),
 			3 => __( 'Custom field deleted.' ),
-			4 => sprintf( __( '%1$s updated.' ), $this->post_type ),
+			4 => sprintf( __( '%1$s updated.' ), $this->singular ),
 			/* translators: %s: date and time of the revision */
-			5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %2$s' ), $this->post_type , wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6 => sprintf( __( '%1$s published. <a href="%2$s">View %1$s</a>' ), $this->post_type, esc_url( get_permalink( $post_ID ) ) ),
-			7 => sprintf( __( '%1$s saved.' ), $this->post_type ),
-			8 => sprintf( __( '%1$s submitted. <a target="_blank" href="%2$s">Preview %1$s</a>' ), $this->post_type, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
-			9 => sprintf( __( '%1$s scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %1$s</a>' ), $this->post_type,
+			5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %2$s' ), $this->singular , wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6 => sprintf( __( '%1$s published. <a href="%2$s">View %1$s</a>' ), $this->singular, esc_url( get_permalink( $post_ID ) ) ),
+			7 => sprintf( __( '%1$s saved.' ), $this->singular ),
+			8 => sprintf( __( '%1$s submitted. <a target="_blank" href="%2$s">Preview %1$s</a>' ), $this->singular, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+			9 => sprintf( __( '%1$s scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %1$s</a>' ), $this->singular,
 					// translators: Publish box date format, see http://php.net/date
 					date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ) ),
-			10 => sprintf( __( '%1$s draft updated. <a target="_blank" href="%2$s">Preview %1$s</a>' ), $this->post_type, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+			10 => sprintf( __( '%1$s draft updated. <a target="_blank" href="%2$s">Preview %1$s</a>' ), $this->singular, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
 		);
 		return $messages;
 
@@ -186,8 +186,8 @@ class CPT_Core {
 	public function title( $title ){
 
 		$screen = get_current_screen();
-		if ( isset( $screen->post_type ) && $screen->post_type == $this->registered )
-			return sprintf( __( '%s Title' ), $this->post_type );
+		if ( isset( $screen->post_type ) && $screen->post_type == $this->post_type )
+			return sprintf( __( '%s Title' ), $this->singular );
 
 		return $title;
 	}
@@ -197,8 +197,8 @@ class CPT_Core {
 	 */
 	function cpt_icons() {
 		$screen = get_current_screen()->id;
-		$file = 'lib/css/'. $this->registered .'.png';
-		$path = 'lib/css/'. $this->registered .'.png';
+		$file = 'lib/css/'. $this->post_type .'.png';
+		$path = 'lib/css/'. $this->post_type .'.png';
 		$img = file_exists( $file ) ? $path : null;
 
 ?>
@@ -209,11 +209,11 @@ class CPT_Core {
 	}
 	<?php
 
-	if ( $screen == 'edit-'. $this->registered || $screen == $this->registered ) {
-		$file = 'lib/css/'. $this->registered .'32.png';
-		$path = 'lib/css/'. $this->registered .'32.png';
+	if ( $screen == 'edit-'. $this->post_type || $screen == $this->post_type ) {
+		$file = 'lib/css/'. $this->post_type .'32.png';
+		$path = 'lib/css/'. $this->post_type .'32.png';
 		if ( file_exists( $file ) ) {
-	?>#icon-edit.icon32.icon32-posts-<?php echo $this->registered; ?> {
+	?>#icon-edit.icon32.icon32-posts-<?php echo $this->post_type; ?> {
 		background-position: 0 0;
 		background-image: url('<?php echo $path; ?>');
 	}
@@ -222,13 +222,13 @@ class CPT_Core {
 		}
 
 	}
-	?>#menu-posts-<?php $this->registered; ?> .wp-menu-image a {
+	?>#menu-posts-<?php $this->post_type; ?> .wp-menu-image a {
 		overflow: hidden;
 	}
-	#adminmenu .menu-icon-<?php echo $this->registered; ?> div.wp-menu-image {
+	#adminmenu .menu-icon-<?php echo $this->post_type; ?> div.wp-menu-image {
 		overflow: hidden;
 	}
-	#menu-posts-<?php $this->registered; ?> .wp-menu-image img {
+	#menu-posts-<?php $this->post_type; ?> .wp-menu-image img {
 		opacity: 1;
 		filter: alpha(opacity=100);
 		position: relative;
@@ -241,19 +241,15 @@ class CPT_Core {
 	/**
 	 * Provides access to private class properties.
 	 * @since  0.2.0
-	 * @param  boolean $registered_name Whether to just return the registered name
-	 * @return mixed                    Post type registered name or array of singular, plural and registered name
+	 * @param  boolean $key Specific CPT parameter to return
+	 * @return mixed        Specific CPT parameter or array of singular, plural and registered name
 	 */
-	public function post_type( $registered_name = true ) {
+	public function post_type( $key = 'post_type' ) {
 
-		// by default, just send back the registered CPT name/slug
-		if ( $registered_name )
-			return $this->registered;
-
-		return array(
-			'singular' => $this->post_type,
+		return isset( $this->$key ) ? $this->$key : array(
+			'singular' => $this->singular,
 			'plural' => $this->plural,
-			'registered' => $this->registered,
+			'post_type' => $this->post_type,
 		);
 	}
 
