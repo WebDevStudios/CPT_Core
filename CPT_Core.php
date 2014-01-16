@@ -204,6 +204,7 @@ class CPT_Core {
 
 	/**
 	 * @todo Create a good method for finding & adding CPT images.
+	 * Maybe using WP 3.8 icon font?
 	 */
 	function cpt_icons() {
 		$screen = get_current_screen()->id;
