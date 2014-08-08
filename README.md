@@ -19,7 +19,7 @@ require_once 'CPT_Core/CPT_Core.php';
 /**
  * Will register a 'Q & A' CPT
  */
-register_via_cpt_core( 'Q & A' );
+register_via_cpt_core( array( 'Q & A', 'Q & As', 'q-and-a-items') );
 
 /**
  * OR create a CPT child class for utilizing built-in methods, like CPT_Core::columns, and CPT_Core::columns_display
@@ -32,9 +32,10 @@ class Actress_CPT extends CPT_Core {
 	public function __construct() {
 
 		// Register this cpt
-		// First parameter can be an array with Singular, Plural, and Registered name
-		parent::__construct( array( 'Actress', 'Actresses', 'film-actress' ), array(
-			'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
+		// First parameter should be an array with Singular, Plural, and Registered name
+		parent::__construct(
+			array( 'Actress', 'Actresses', 'film-actress' ),
+			array( 'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
 		) );
 
 	}
