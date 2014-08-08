@@ -4,6 +4,9 @@
  * @version 0.2.0
  * @todo    Fix cpt_icons method
  * @author  Justin Sternberg
+ *
+ * Text Domain: cpt-core
+ * Domain Path: /languages
  */
 class CPT_Core {
 
@@ -44,31 +47,39 @@ class CPT_Core {
 	private static $custom_post_types = array();
 
 	/**
+	 * Whether text-domain has been registered
+	 * @var boolean
+	 */
+	private static $l10n_done = false;
+
+	/**
 	 * Constructor. Builds our CPT.
 	 * @since 0.1.0
-	 * @param mixed  $cpt           Singular CPT name, or array with Singular, Plural, and Registered
+	 * @param mixed  $cpt           Array with Singular, Plural, and Registered (slug)
 	 * @param array  $arg_overrides CPT registration override arguments
 	 */
-	public function __construct( $cpt, $arg_overrides = array() ) {
+	public function __construct( array $cpt, $arg_overrides = array() ) {
 
-		if( ! $cpt ) // If they passed in false or something odd
-			wp_die( 'Post type required for the first parameter in CPT_Core.' );
-
-		if ( is_string( $cpt ) ) {
-			$this->singular  = $cpt;
-			$this->plural    = $cpt .'s';
-			$this->post_type = sanitize_title( $this->plural );
-		} elseif ( is_array( $cpt ) && $cpt[0] ) {
-			$this->singular  = $cpt[0];
-			$this->plural    = !isset( $cpt[1] ) || !is_string( $cpt[1] ) ? $cpt[0] .'s' : $cpt[1];
-			$this->post_type = !isset( $cpt[2] ) || !is_string( $cpt[2] ) ? sanitize_title( $this->plural ) : $cpt[2];
-		} else {
-			// Something went wrong.
-			wp_die( 'There was an error with the custom post type in CPT_Core.' );
+		if ( ! is_array( $cpt ) ) {
+			wp_die( __( 'It is required to pass a single, plural and slug string to CPT_Core', 'cpt-core' ) );
 		}
+
+		if ( ! isset( $cpt[0], $cpt[1], $cpt[2] ) ) {
+			wp_die( __( 'It is required to pass a single, plural and slug string to CPT_Core', 'cpt-core' ) );
+		}
+
+		if ( ! is_string( $cpt[0] ) || ! is_string( $cpt[1] ) || ! is_string( $cpt[2] ) ) {
+			wp_die( __( 'It is required to pass a single, plural and slug string to CPT_Core', 'cpt-core' ) );
+		}
+
+		$this->singular  = $cpt[0];
+		$this->plural    = !isset( $cpt[1] ) || !is_string( $cpt[1] ) ? $cpt[0] .'s' : $cpt[1];
+		$this->post_type = !isset( $cpt[2] ) || !is_string( $cpt[2] ) ? sanitize_title( $this->plural ) : $cpt[2];
 
 		$this->arg_overrides = (array) $arg_overrides;
 
+		// load text domain
+		add_action( 'init', array( $this, 'l10n' ) );
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_filter( 'post_updated_messages', array( $this, 'messages' ) );
 		add_filter( 'manage_edit-'. $this->post_type .'_columns', array( $this, 'columns' ) );
@@ -76,7 +87,6 @@ class CPT_Core {
 		$h = isset( $arg_overrides['hierarchical'] ) && $arg_overrides['hierarchical'] ? 'pages' : 'posts';
 		add_action( "manage_{$h}_custom_column", array( $this, 'columns_display' ) );
 		add_filter( 'enter_title_here', array( $this, 'title' ) );
-		// add_action( 'admin_head', array( $this, 'cpt_icons' ) );
 	}
 
 	/**
@@ -92,16 +102,16 @@ class CPT_Core {
 		$labels = array(
 			'name'               => $this->plural,
 			'singular_name'      => $this->singular,
-			'add_new'            => sprintf( __( 'Add New %s' ), $this->singular ),
-			'add_new_item'       => sprintf( __( 'Add New %s' ), $this->singular ),
-			'edit_item'          => sprintf( __( 'Edit %s' ), $this->singular ),
-			'new_item'           => sprintf( __( 'New %s' ), $this->singular ),
-			'all_items'          => sprintf( __( 'All %s' ), $this->plural ),
-			'view_item'          => sprintf( __( 'View %s' ), $this->singular ),
-			'search_items'       => sprintf( __( 'Search %s' ), $this->plural ),
-			'not_found'          => sprintf( __( 'No %s' ), $this->plural ),
-			'not_found_in_trash' => sprintf( __( 'No %s found in Trash' ), $this->plural ),
-			'parent_item_colon'  => isset( $this->arg_overrides['hierarchical'] ) && $this->arg_overrides['hierarchical'] ? sprintf( __( 'Parent %s:' ), $this->singular ) : null,
+			'add_new'            => sprintf( __( 'Add New %s', 'cpt-core' ), $this->singular ),
+			'add_new_item'       => sprintf( __( 'Add New %s', 'cpt-core' ), $this->singular ),
+			'edit_item'          => sprintf( __( 'Edit %s', 'cpt-core' ), $this->singular ),
+			'new_item'           => sprintf( __( 'New %s', 'cpt-core' ), $this->singular ),
+			'all_items'          => sprintf( __( 'All %s', 'cpt-core' ), $this->plural ),
+			'view_item'          => sprintf( __( 'View %s', 'cpt-core' ), $this->singular ),
+			'search_items'       => sprintf( __( 'Search %s', 'cpt-core' ), $this->plural ),
+			'not_found'          => sprintf( __( 'No %s', 'cpt-core' ), $this->plural ),
+			'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'cpt-core' ), $this->plural ),
+			'parent_item_colon'  => isset( $this->arg_overrides['hierarchical'] ) && $this->arg_overrides['hierarchical'] ? sprintf( __( 'Parent %s:', 'cpt-core' ), $this->singular ) : null,
 			'menu_name'          => $this->plural,
 		);
 
@@ -149,19 +159,19 @@ class CPT_Core {
 
 		$messages[$this->singular] = array(
 			0 => '', // Unused. Messages start at index 1.
-			1 => sprintf( __( '%1$s updated. <a href="%2$s">View %1$s</a>' ), $this->singular, esc_url( get_permalink( $post_ID ) ) ),
+			1 => sprintf( __( '%1$s updated. <a href="%2$s">View %1$s</a>', 'cpt-core' ), $this->singular, esc_url( get_permalink( $post_ID ) ) ),
 			2 => __( 'Custom field updated.' ),
 			3 => __( 'Custom field deleted.' ),
-			4 => sprintf( __( '%1$s updated.' ), $this->singular ),
+			4 => sprintf( __( '%1$s updated.', 'cpt-core' ), $this->singular ),
 			/* translators: %s: date and time of the revision */
-			5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %2$s' ), $this->singular , wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6 => sprintf( __( '%1$s published. <a href="%2$s">View %1$s</a>' ), $this->singular, esc_url( get_permalink( $post_ID ) ) ),
-			7 => sprintf( __( '%1$s saved.' ), $this->singular ),
-			8 => sprintf( __( '%1$s submitted. <a target="_blank" href="%2$s">Preview %1$s</a>' ), $this->singular, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
-			9 => sprintf( __( '%1$s scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %1$s</a>' ), $this->singular,
+			5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %2$s', 'cpt-core' ), $this->singular , wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6 => sprintf( __( '%1$s published. <a href="%2$s">View %1$s</a>', 'cpt-core' ), $this->singular, esc_url( get_permalink( $post_ID ) ) ),
+			7 => sprintf( __( '%1$s saved.', 'cpt-core' ), $this->singular ),
+			8 => sprintf( __( '%1$s submitted. <a target="_blank" href="%2$s">Preview %1$s</a>', 'cpt-core' ), $this->singular, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+			9 => sprintf( __( '%1$s scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %1$s</a>', 'cpt-core' ), $this->singular,
 					// translators: Publish box date format, see http://php.net/date
 					date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ) ),
-			10 => sprintf( __( '%1$s draft updated. <a target="_blank" href="%2$s">Preview %1$s</a>' ), $this->singular, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+			10 => sprintf( __( '%1$s draft updated. <a target="_blank" href="%2$s">Preview %1$s</a>', 'cpt-core' ), $this->singular, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
 		);
 		return $messages;
 
@@ -197,7 +207,7 @@ class CPT_Core {
 
 		$screen = get_current_screen();
 		if ( isset( $screen->post_type ) && $screen->post_type == $this->post_type )
-			return sprintf( __( '%s Title' ), $this->singular );
+			return sprintf( __( '%s Title', 'cpt-core' ), $this->singular );
 
 		return $title;
 	}
@@ -285,6 +295,21 @@ class CPT_Core {
 	public function __toString() {
 		return $this->post_type();
 	}
+
+	/**
+	 * Load this libraries text domain
+	 * @since  0.2.1
+	 */
+	public function l10n() {
+		// Only do this one time
+		if ( self::$l10n_done ) {
+			return;
+		}
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'cpt-core' );
+		load_textdomain( 'cpt-core', WP_LANG_DIR . '/cpt-core/cpt-core-' . $locale . '.mo' );
+		load_plugin_textdomain( 'cpt-core', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
+
 }
 
 if ( !function_exists( 'register_via_cpt_core' ) ) {
