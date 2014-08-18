@@ -77,6 +77,7 @@ class CPT_Core {
 		add_action( "manage_{$h}_custom_column", array( $this, 'columns_display' ) );
 		add_filter( 'enter_title_here', array( $this, 'title' ) );
 		// add_action( 'admin_head', array( $this, 'cpt_icons' ) );
+		add_filter( 'dashboard_glance_items', array( $this, 'at_a_glance' ) );
 	}
 
 	/**
@@ -249,6 +250,51 @@ class CPT_Core {
 <?php
 	}
 
+	public function at_a_glance( $items = array() ) {
+		$num_posts = wp_count_posts( $this->post_type() );
+		if ( ! $num_posts ) {
+			return;
+		}
+
+		$icon = $this->get_menu_icon();
+		if ( 0 === stripos( $icon, 'data:image/svg+xml;base64,' ) ) {
+			$style_or_class = 'style="background-image: url(\''. $icon .'\') !important;"';
+		} else {
+			#dashboard_right_now li a:before
+			$style_or_class = 'class="'. $icon .'"';
+		}
+		// 'background-image: url("data:image/svg+xml;base64,' + xml + '") !important;'
+		$published = absint( $num_posts->publish );
+		$text      = _n( '%s ' . $this->cpt_args->labels->singular_name, '%s ' . $this->cpt_args->labels->name, $published, 'cpt_core' );
+		$text      = sprintf( $text, number_format_i18n( $published ) );
+
+		if ( current_user_can( $this->cpt_args->cap->edit_posts ) ) {
+			$text = sprintf( '<a href="edit.php?post_type=%1$s" %2$s>%3$s</a>', $this->post_type(), $style_or_class, $text );
+		} else {
+			$text = sprintf( '<div %1$s> %2$s</div>', $style_or_class, $text );
+		}
+
+		$items[] = $text . "\n";
+
+		return $items;
+	}
+
+	public function get_menu_icon() {
+
+		if ( is_string( $this->cpt_args->menu_icon ) ) {
+			// Special handling for data:image/svg+xml and Dashicons.
+			if ( 0 === strpos( $this->cpt_args->menu_icon, 'data:image/svg+xml;base64,' ) || 0 === strpos( $this->cpt_args->menu_icon, 'dashicons-' ) ) {
+				$menu_icon = $this->cpt_args->menu_icon;
+			} else {
+				$menu_icon = esc_url( $this->cpt_args->menu_icon );
+			}
+		} else {
+			$menu_icon = 'dashicons-admin-post';
+		}
+
+		return $menu_icon;
+	}
+
 	/**
 	 * Provides access to private class properties.
 	 * @since  0.2.0
@@ -265,7 +311,7 @@ class CPT_Core {
 	}
 
 	/**
-	 * Provides access to all CPT_Core taxonomy objects registered via this class.
+	 * Provides access to all CPT_Core objects registered via this class.
 	 * @since  0.1.0
 	 * @param  string $post_type Specific CPT_Core object to return, or 'true' to specify only names.
 	 * @return mixed             Specific CPT_Core object or array of all
