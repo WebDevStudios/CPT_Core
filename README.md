@@ -19,7 +19,7 @@ require_once 'CPT_Core/CPT_Core.php';
 /**
  * Will register a 'Q & A' CPT
  */
-register_via_cpt_core( array( 'Q & A', 'Q & As', 'q-and-a-items') );
+register_via_cpt_core( array( __( 'Q & A', 'cpt-core' ), __( 'Q & As', 'cpt-core' ), 'q-and-a-items') );
 
 /**
  * OR create a CPT child class for utilizing built-in methods, like CPT_Core::columns, and CPT_Core::columns_display
@@ -34,7 +34,7 @@ class Actress_CPT extends CPT_Core {
 		// Register this cpt
 		// First parameter should be an array with Singular, Plural, and Registered name
 		parent::__construct(
-			array( 'Actress', 'Actresses', 'film-actress' ),
+			array( __( 'Actress', 'cpt-core' ), __( 'Actresses', 'cpt-core' ), 'film-actress' ),
 			array( 'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
 		) );
 
@@ -48,7 +48,7 @@ class Actress_CPT extends CPT_Core {
 	 */
 	public function columns( $columns ) {
 		$new_column = array(
-			'headshot' => sprintf( __( '%s Headshot', '_s' ), $this->post_type( 'singular' ) ),
+			'headshot' => sprintf( __( '%s Headshot', 'cpt-core' ), $this->post_type( 'singular' ) ),
 		);
 		return array_merge( $new_column, $columns );
 	}
