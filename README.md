@@ -3,8 +3,6 @@ CPT_Core
 
 A tool to make custom post type registration just a bit simpler. Automatically registers post type labels and messages, and provides helpful methods.
 
-Future version will include a method for registering the custom icons for wp-admin (vs the default pin icon).
-
 Also see [Taxonomy_Core](https://github.com/jtsternberg/Taxonomy_Core).
 
 #### Example Usage:
@@ -19,7 +17,11 @@ require_once 'CPT_Core/CPT_Core.php';
 /**
  * Will register a 'Q & A' CPT
  */
-register_via_cpt_core( array( __( 'Q & A', 'cpt-core' ), __( 'Q & As', 'cpt-core' ), 'q-and-a-items') );
+register_via_cpt_core( array(
+	__( 'Q & A', 'your-text-domain' ), // Singular
+	__( 'Q & As', 'your-text-domain' ), // Plural
+	'q-and-a-items' // Registered name/slug
+) );
 
 /**
  * OR create a CPT child class for utilizing built-in methods, like CPT_Core::columns, and CPT_Core::columns_display
@@ -34,7 +36,7 @@ class Actress_CPT extends CPT_Core {
 		// Register this cpt
 		// First parameter should be an array with Singular, Plural, and Registered name
 		parent::__construct(
-			array( __( 'Actress', 'cpt-core' ), __( 'Actresses', 'cpt-core' ), 'film-actress' ),
+			array( __( 'Actress', 'your-text-domain' ), __( 'Actresses', 'your-text-domain' ), 'film-actress' ),
 			array( 'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
 		) );
 
@@ -48,7 +50,7 @@ class Actress_CPT extends CPT_Core {
 	 */
 	public function columns( $columns ) {
 		$new_column = array(
-			'headshot' => sprintf( __( '%s Headshot', 'cpt-core' ), $this->post_type( 'singular' ) ),
+			'headshot' => sprintf( __( '%s Headshot', 'your-text-domain' ), $this->post_type( 'singular' ) ),
 		);
 		return array_merge( $new_column, $columns );
 	}
