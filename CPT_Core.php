@@ -1,4 +1,6 @@
 <?php
+if ( ! class_exists( 'CPT_Core' ) ) :
+
 /**
  * Plugin class for generating Custom Post Types.
  * @version 0.2.0
@@ -324,3 +326,5 @@ if ( !function_exists( 'register_via_cpt_core' ) ) {
 		return new CPT_Core( $cpt, $arg_overrides );
 	}
 }
+
+endif; // end class_exists check
