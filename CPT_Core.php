@@ -4,7 +4,6 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 /**
  * Plugin class for generating Custom Post Types.
  * @version 0.2.0
- * @todo    Fix cpt_icons method
  * @author  Justin Sternberg
  *
  * Text Domain: cpt-core
@@ -215,53 +214,6 @@ class CPT_Core {
 	}
 
 	/**
-	 * @todo Create a good method for finding & adding CPT images.
-	 * Maybe using WP 3.8 icon font?
-	 */
-	function cpt_icons() {
-		$screen = get_current_screen()->id;
-		$file   = 'lib/css/'. $this->post_type .'.png';
-		$path   = 'lib/css/'. $this->post_type .'.png';
-		$img    = file_exists( $file ) ? $path : null;
-
-?>
-<style type="text/css">
-	#adminmenu li.menu-top:hover .wp-menu-image img,
-	#adminmenu li.wp-has-current-submenu .wp-menu-image img {
-		top: 0;
-	}
-	<?php
-
-	if ( $screen == 'edit-'. $this->post_type || $screen == $this->post_type ) {
-		$file = 'lib/css/'. $this->post_type .'32.png';
-		$path = 'lib/css/'. $this->post_type .'32.png';
-		if ( file_exists( $file ) ) {
-	?>#icon-edit.icon32.icon32-posts-<?php echo $this->post_type; ?> {
-		background-position: 0 0;
-		background-image: url('<?php echo $path; ?>');
-	}
-	<?php
-
-		}
-
-	}
-	?>#menu-posts-<?php $this->post_type; ?> .wp-menu-image a {
-		overflow: hidden;
-	}
-	#adminmenu .menu-icon-<?php echo $this->post_type; ?> div.wp-menu-image {
-		overflow: hidden;
-	}
-	#menu-posts-<?php $this->post_type; ?> .wp-menu-image img {
-		opacity: 1;
-		filter: alpha(opacity=100);
-		position: relative;
-		top: -24px;
-	}
-</style>
-<?php
-	}
-
-	/**
 	 * Provides access to private class properties.
 	 * @since  0.2.0
 	 * @param  boolean $key Specific CPT parameter to return
@@ -299,7 +251,7 @@ class CPT_Core {
 	}
 
 	/**
-	 * Load this libraries text domain
+	 * Load this library's text domain
 	 * @since  0.2.1
 	 */
 	public function l10n() {
