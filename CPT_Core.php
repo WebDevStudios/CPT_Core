@@ -158,7 +158,7 @@ class CPT_Core {
 	public function messages( $messages ) {
 		global $post, $post_ID;
 
-		$messages[$this->singular] = array(
+		$messages[$this->post_type] = array(
 			0 => '', // Unused. Messages start at index 1.
 			1 => sprintf( __( '%1$s updated. <a href="%2$s">View %1$s</a>', 'cpt-core' ), $this->singular, esc_url( get_permalink( $post_ID ) ) ),
 			2 => __( 'Custom field updated.' ),
