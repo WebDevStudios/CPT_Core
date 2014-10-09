@@ -37,8 +37,8 @@ class Actress_CPT extends CPT_Core {
 		// First parameter should be an array with Singular, Plural, and Registered name
 		parent::__construct(
 			array( __( 'Actress', 'your-text-domain' ), __( 'Actresses', 'your-text-domain' ), 'film-actress' ),
-			array( 'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
-		) );
+			array( 'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ), )
+		);
 
 	}
 
