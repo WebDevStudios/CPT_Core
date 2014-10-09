@@ -86,7 +86,7 @@ class CPT_Core {
 		add_filter( 'manage_edit-'. $this->post_type .'_columns', array( $this, 'columns' ) );
 		// Different column registration for pages/posts
 		$h = isset( $arg_overrides['hierarchical'] ) && $arg_overrides['hierarchical'] ? 'pages' : 'posts';
-		add_action( "manage_{$h}_custom_column", array( $this, 'columns_display' ) );
+		add_action( "manage_{$h}_custom_column", array( $this, 'columns_display' ), 10, 2 );
 		add_filter( 'enter_title_here', array( $this, 'title' ) );
 	}
 
@@ -194,7 +194,7 @@ class CPT_Core {
 	 * @since  0.1.0
 	 * @param  array  $column Array of registered column names
 	 */
-	public function columns_display( $column ) {
+	public function columns_display( $column, $post_id ) {
 		// placeholder
 	}
 
