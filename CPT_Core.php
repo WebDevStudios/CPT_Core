@@ -84,6 +84,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			add_action( 'init', array( $this, 'register_post_type' ) );
 			add_filter( 'post_updated_messages', array( $this, 'messages' ) );
 			add_filter( 'manage_edit-'. $this->post_type .'_columns', array( $this, 'columns' ) );
+			add_filter( 'manage_edit-'. $this->post_type .'_sortable_columns', array( $this, 'sortable_columns' ) );
 			// Different column registration for pages/posts
 			$h = isset( $arg_overrides['hierarchical'] ) && $arg_overrides['hierarchical'] ? 'pages' : 'posts';
 			add_action( "manage_{$h}_custom_column", array( $this, 'columns_display' ), 10, 2 );
@@ -217,6 +218,17 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		public function columns( $columns ) {
 			// placeholder
 			return $columns;
+		}
+
+		/**
+		 * Registers which columns are sortable. To be overridden by an extended class.
+		 * @since  0.1.0
+		 * @param  array  $columns Array of registered column keys => data-identifier
+		 * @return array           Modified array
+		 */
+		public function sortable_columns( $sortable_columns ) {
+			// placeholder
+			return $sortable_columns;
 		}
 
 		/**
