@@ -1,0 +1,123 @@
+# Copyright (C) 2014 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/CPT_Core\n"
+"POT-Creation-Date: 2014-11-24 20:33:12+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 0.4.9\n"
+
+#: CPT_Core.php:65 CPT_Core.php:69 CPT_Core.php:73
+msgid "It is required to pass a single, plural and slug string to CPT_Core"
+msgstr ""
+
+#: CPT_Core.php:122 CPT_Core.php:123
+msgid "Add New %s"
+msgstr ""
+
+#: CPT_Core.php:124
+msgid "Edit %s"
+msgstr ""
+
+#: CPT_Core.php:125
+msgid "New %s"
+msgstr ""
+
+#: CPT_Core.php:126
+msgid "All %s"
+msgstr ""
+
+#: CPT_Core.php:127
+msgid "View %s"
+msgstr ""
+
+#: CPT_Core.php:128
+msgid "Search %s"
+msgstr ""
+
+#: CPT_Core.php:129
+msgid "No %s"
+msgstr ""
+
+#: CPT_Core.php:130
+msgid "No %s found in Trash"
+msgstr ""
+
+#: CPT_Core.php:131
+msgid "Parent %s:"
+msgstr ""
+
+#: CPT_Core.php:180
+msgid "Custom field updated."
+msgstr ""
+
+#: CPT_Core.php:181
+msgid "Custom field deleted."
+msgstr ""
+
+#: CPT_Core.php:182 CPT_Core.php:199
+msgid "%1$s updated."
+msgstr ""
+
+#: CPT_Core.php:184
+#. translators: %s: date and time of the revision
+msgid "%1$s restored to revision from %2$s"
+msgstr ""
+
+#: CPT_Core.php:185
+msgid "%1$s saved."
+msgstr ""
+
+#: CPT_Core.php:190
+msgid "%1$s updated. <a href=\"%2$s\">View %1$s</a>"
+msgstr ""
+
+#: CPT_Core.php:191
+msgid "%1$s published. <a href=\"%2$s\">View %1$s</a>"
+msgstr ""
+
+#: CPT_Core.php:192
+msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %1$s</a>"
+msgstr ""
+
+#: CPT_Core.php:194
+#. translators: Publish box date format, see http:php.net/date
+msgid ""
+"%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" "
+"href=\"%3$s\">Preview %1$s</a>"
+msgstr ""
+
+#: CPT_Core.php:194 CPT_Core.php:203
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: CPT_Core.php:195
+msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %1$s</a>"
+msgstr ""
+
+#: CPT_Core.php:200
+msgid "%1$s published."
+msgstr ""
+
+#: CPT_Core.php:201
+msgid "%1$s submitted."
+msgstr ""
+
+#: CPT_Core.php:203
+#. translators: Publish box date format, see http:php.net/date
+msgid "%1$s scheduled for: <strong>%2$s</strong>."
+msgstr ""
+
+#: CPT_Core.php:204
+msgid "%1$s draft updated."
+msgstr ""
+
+#: CPT_Core.php:253
+msgid "%s Title"
+msgstr ""

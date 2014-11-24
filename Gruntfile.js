@@ -5,15 +5,15 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 
 		makepot: {
-			cptcore: {
+			target: {
 				options: {
-					cwd: 'plugins/wds-must-use-plugins/cpt_core',
-					domainPath: '/languages/',
+					domainPath: '/languages',
 					potFileName: 'cpt-core.pot',
+					mainFile: 'CPT_Core.php',
 					type: 'wp-plugin'
 				}
-			},
-		},
+			}
+	   },
 
 		addtextdomain: {
 			theme: {
