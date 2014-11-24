@@ -1,0 +1,11 @@
+{
+  "name": "cpt_core",
+  "version": "0.2.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "homepage": "https://github.com/WebDevStudios/CPT_Core",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-wp-i18n": "~0.4.9"
+  }
+}
