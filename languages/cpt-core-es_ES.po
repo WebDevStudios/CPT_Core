@@ -1,133 +1,180 @@
-# Copyright (C) 2014 
-# This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: v\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/CPT_Core\n"
 "POT-Creation-Date: 2014-11-24 20:44:56+00:00\n"
+"PO-Revision-Date: 2014-11-25 20:31:41+0000\n"
+"Last-Translator: Justin Sternberg <justin@dsgnwrks.pro>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-11-24 15:53-0500\n"
-"Last-Translator: Justin Sternberg <justin@dsgnwrks.pro>\n"
-"Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 1.7beta2\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: es\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
 
-#: CPT_Core.php:65 CPT_Core.php:69 CPT_Core.php:73
+#: CPT_Core.php:65
+#: CPT_Core.php:69
+#: CPT_Core.php:73
+#@ cpt-core
 msgid "It is required to pass a single, plural and slug string to CPT_Core"
 msgstr ""
 
-#: CPT_Core.php:122 CPT_Core.php:123
+#: CPT_Core.php:122
+#: CPT_Core.php:123
+#, php-format
+#@ cpt-core
 msgid "Add New %s"
 msgstr "Agregar nuevo %s"
 
 #: CPT_Core.php:124
+#, php-format
+#@ cpt-core
 msgid "Edit %s"
 msgstr "Edito %s"
 
 #: CPT_Core.php:125
+#, php-format
+#@ cpt-core
 msgid "New %s"
 msgstr "%s nuevos"
 
 #: CPT_Core.php:126
+#, php-format
+#@ cpt-core
 msgid "All %s"
 msgstr "Todos %s"
 
 #: CPT_Core.php:127
+#, php-format
+#@ cpt-core
 msgid "View %s"
 msgstr "Veo %s"
 
 #: CPT_Core.php:128
+#, php-format
+#@ cpt-core
 msgid "Search %s"
 msgstr "Busco %s"
 
 #: CPT_Core.php:129
+#, php-format
+#@ cpt-core
 msgid "No %s"
 msgstr "No %s"
 
 #: CPT_Core.php:130
+#, php-format
+#@ cpt-core
 msgid "No %s found in Trash"
 msgstr "no hay %s que se encuentran en la basura"
 
 #: CPT_Core.php:131
+#, php-format
+#@ cpt-core
 msgid "Parent %s:"
 msgstr "Padre %s:"
 
 #: CPT_Core.php:180
+#@ default
 msgid "Custom field updated."
 msgstr "Campo personalizado actualizado."
 
 #: CPT_Core.php:181
+#@ default
 msgid "Custom field deleted."
 msgstr "Campo personalizado borrado."
 
-#: CPT_Core.php:182 CPT_Core.php:199
+#: CPT_Core.php:182
+#: CPT_Core.php:199
+#, php-format
+#@ cpt-core
 msgid "%1$s updated."
 msgstr "%1$s actualiza."
 
-#. translators: %s: date and time of the revision
+#. translators: %s: date and time of the revision 
 #: CPT_Core.php:184
+#, php-format
+#@ cpt-core
 msgid "%1$s restored to revision from %2$s"
 msgstr "%1$s restaurado a la revisión de %2$s"
 
 #: CPT_Core.php:185
+#, php-format
+#@ cpt-core
 msgid "%1$s saved."
 msgstr "%1$s guardado."
 
 #: CPT_Core.php:190
+#, php-format
+#@ cpt-core
 msgid "%1$s updated. <a href=\"%2$s\">View %1$s</a>"
 msgstr "%1$s actualizado. <a href=\"%2$s\">Ver %1$s</a>"
 
 #: CPT_Core.php:191
+#, php-format
+#@ cpt-core
 msgid "%1$s published. <a href=\"%2$s\">View %1$s</a>"
 msgstr "%1$s publicado. <a href=\"%2$s\">Ver %1$s</a>"
 
 #: CPT_Core.php:192
+#, php-format
+#@ cpt-core
 msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %1$s</a>"
-msgstr ""
-"proyecto de %1$s actualiza. <a target=\"_blank\" href=\"%2$s\">Vista previa "
-"%1$s</a>"
+msgstr "proyecto de %1$s actualiza. <a target=\"_blank\" href=\"%2$s\">Vista previa %1$s</a>"
 
-#. translators: Publish box date format, see http:php.net/date
 #: CPT_Core.php:194
-msgid ""
-"%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s"
-"\">Preview %1$s</a>"
-msgstr ""
-"Página programada por: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Vista previa</a>"
+#, php-format
+#@ cpt-core
+msgid "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Preview %1$s</a>"
+msgstr "Página programada por: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Vista previa</a>"
 
-#: CPT_Core.php:194 CPT_Core.php:203
+#: CPT_Core.php:194
+#: CPT_Core.php:203
+#@ default
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
 #: CPT_Core.php:195
+#, php-format
+#@ cpt-core
 msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %1$s</a>"
-msgstr ""
-"proyecto de %1$s actualiza. <a target=\"_blank\" href=\"%2$s\">Vista previa "
-"%1$s</a>"
+msgstr "proyecto de %1$s actualiza. <a target=\"_blank\" href=\"%2$s\">Vista previa %1$s</a>"
 
 #: CPT_Core.php:200
+#, php-format
+#@ cpt-core
 msgid "%1$s published."
 msgstr "%1$s publicado. <a href=\"%2$s\">Ver %1$s</a>"
 
 #: CPT_Core.php:201
+#, php-format
+#@ cpt-core
 msgid "%1$s submitted."
 msgstr "Enviado el: <b>%1$s</b>"
 
-#. translators: Publish box date format, see http:php.net/date
 #: CPT_Core.php:203
+#, php-format
+#@ cpt-core
 msgid "%1$s scheduled for: <strong>%2$s</strong>."
 msgstr "%1$s programado para: <strong>%2$s</strong>."
 
 #: CPT_Core.php:204
+#, php-format
+#@ cpt-core
 msgid "%1$s draft updated."
-msgstr ""
-"proyecto de %1$s actualiza. <a target=\"_blank\" href=\"%2$s\">Vista previa "
-"%1$s</a>"
+msgstr "proyecto de %1$s actualiza. <a target=\"_blank\" href=\"%2$s\">Vista previa %1$s</a>"
 
 #: CPT_Core.php:253
+#, php-format
+#@ cpt-core
 msgid "%s Title"
 msgstr "título del %s"
+
