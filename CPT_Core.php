@@ -80,7 +80,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			$this->arg_overrides = (array) $arg_overrides;
 
 			// load text domain
-			add_action( 'init', array( $this, 'l10n' ) );
+			add_action( 'plugins_loaded', array( $this, 'l10n' ) );
 			add_action( 'init', array( $this, 'register_post_type' ) );
 			add_filter( 'post_updated_messages', array( $this, 'messages' ) );
 			add_filter( 'manage_edit-'. $this->post_type .'_columns', array( $this, 'columns' ) );
@@ -301,9 +301,10 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			if ( self::$l10n_done ) {
 				return;
 			}
+
 			$locale = apply_filters( 'plugin_locale', get_locale(), 'cpt-core' );
-			load_textdomain( 'cpt-core', WP_LANG_DIR . '/cpt-core/cpt-core-' . $locale . '.mo' );
-			load_plugin_textdomain( 'cpt-core', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+			$mofile = dirname( __FILE__ ) . '/languages/cpt-core-'. $locale .'.mo';
+			load_textdomain( 'cpt-core', $mofile );
 		}
 
 	}
