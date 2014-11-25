@@ -1,4 +1,16 @@
 <?php
+/*
+Plugin Name: WDS CPT Core
+Plugin URI: http://webdevstudios.com
+Description: CPT registration starter class
+Version: 0.2.0
+Author: WebDevStudios.com
+Author URI: http://webdevstudios.com
+License: GPLv2
+Domain: cpt-core
+Path: languages
+*/
+
 if ( ! class_exists( 'CPT_Core' ) ) :
 
 	/**
