@@ -3,7 +3,7 @@
 Plugin Name: WDS CPT Core
 Plugin URI: http://webdevstudios.com
 Description: CPT registration starter class
-Version: 0.2.1
+Version: 1.0.0
 Author: WebDevStudios.com
 Author URI: http://webdevstudios.com
 License: GPLv2
@@ -15,7 +15,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 
 	/**
 	 * Plugin class for generating Custom Post Types.
-	 * @version 0.2.1
+	 * @version 1.0.0
 	 * @author  Justin Sternberg
 	 *
 	 * Text Domain: cpt-core
@@ -290,7 +290,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		 * @param  string $post_type Specific CPT_Core object to return, or 'true' to specify only names.
 		 * @return mixed             Specific CPT_Core object or array of all
 		 */
-		public function custom_post_types( $post_type = '' ) {
+		public static function post_types( $post_type = '' ) {
 			if ( $post_type === true && ! empty( self::$custom_post_types ) ) {
 				return array_keys( self::$custom_post_types );
 			}
