@@ -1,0 +1,16 @@
+{
+    "name": "wds/cpt-core",
+    "description": "WordPress Custom Post Type OO wrapper",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "WebDevStudios",
+            "email": "contact@webdevstudios.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": ["CPT_Core.php"]
+    }
+}
