@@ -14,7 +14,7 @@
     "homepage": "https://github.com/WebDevStudios/CPT_Core",
     "type": "wordpress-plugin",
     "support": {
-        "issues": "https://github.com/WebDevStudios/CPT_Core/issues",
+        "issues": "https://github.com/WebDevStudios/CPT_Core/issues"
     },
     "require": {},
     "suggest": {
