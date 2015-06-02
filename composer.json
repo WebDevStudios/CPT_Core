@@ -5,11 +5,21 @@
     "authors": [
         {
             "name": "WebDevStudios",
-            "email": "contact@webdevstudios.com"
+            "email": "contact@webdevstudios.com",
+            "homepage": "https://github.com/WebDevStudios",
+            "role": "Developer"
         }
     ],
-    "minimum-stability": "dev",
+    "keywords": ["wordpress", "plugin", "metabox"],
+    "homepage": "https://github.com/WebDevStudios/CPT_Core",
+    "type": "wordpress-plugin",
+    "support": {
+        "issues": "https://github.com/WebDevStudios/CPT_Core/issues",
+    },
     "require": {},
+    "suggest": {
+        "composer/installers": "~1.0"
+    },
     "autoload": {
         "files": ["CPT_Core.php"]
     }
