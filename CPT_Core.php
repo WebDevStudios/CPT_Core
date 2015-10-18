@@ -92,7 +92,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			$this->arg_overrides = (array) $arg_overrides;
 
 			// load text domain
-			add_action( 'plugins_loaded', array( $this, 'l10n' ) );
+			add_action( 'plugins_loaded', array( $this, 'l10n' ), 5 );
 			add_action( 'init', array( $this, 'register_post_type' ) );
 			add_filter( 'post_updated_messages', array( $this, 'messages' ) );
 			add_filter( 'manage_edit-'. $this->post_type .'_columns', array( $this, 'columns' ) );
