@@ -3,7 +3,7 @@
 Plugin Name: WDS CPT Core
 Plugin URI: http://webdevstudios.com
 Description: CPT registration starter class
-Version: 1.0.0
+Version: 1.0.1
 Author: WebDevStudios.com
 Author URI: http://webdevstudios.com
 License: GPLv2
@@ -15,7 +15,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 
 	/**
 	 * Plugin class for generating Custom Post Types.
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 * @author  Justin Sternberg
 	 *
 	 * Text Domain: cpt-core
@@ -27,43 +27,43 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		 * Singlur CPT label
 		 * @var string
 		 */
-		private $singular;
+		protected $singular;
 
 		/**
 		 * Plural CPT label
 		 * @var string
 		 */
-		private $plural;
+		protected $plural;
 
 		/**
 		 * Registered CPT name/slug
 		 * @var string
 		 */
-		private $post_type;
+		protected $post_type;
 
 		/**
 		 * Optional argument overrides passed in from the constructor.
 		 * @var array
 		 */
-		private $arg_overrides = array();
+		protected $arg_overrides = array();
 
 		/**
 		 * All CPT registration arguments
 		 * @var array
 		 */
-		private $cpt_args = array();
+		protected $cpt_args = array();
 
 		/**
 		 * An array of each CPT_Core object registered with this class
 		 * @var array
 		 */
-		private static $custom_post_types = array();
+		protected static $custom_post_types = array();
 
 		/**
 		 * Whether text-domain has been registered
 		 * @var boolean
 		 */
-		private static $l10n_done = false;
+		protected static $l10n_done = false;
 
 		/**
 		 * Constructor. Builds our CPT.
@@ -270,7 +270,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		}
 
 		/**
-		 * Provides access to private class properties.
+		 * Provides access to protected class properties.
 		 * @since  0.2.0
 		 * @param  boolean $key Specific CPT parameter to return
 		 * @return mixed        Specific CPT parameter or array of singular, plural and registered name
