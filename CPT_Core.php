@@ -95,6 +95,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			add_action( 'plugins_loaded', array( $this, 'l10n' ), 5 );
 			add_action( 'init', array( $this, 'register_post_type' ) );
 			add_filter( 'post_updated_messages', array( $this, 'messages' ) );
+			add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_messages' ), 10, 2 );
 			add_filter( 'manage_edit-'. $this->post_type .'_columns', array( $this, 'columns' ) );
 			add_filter( 'manage_edit-'. $this->post_type .'_sortable_columns', array( $this, 'sortable_columns' ) );
 			// Different column registration for pages/posts
@@ -226,6 +227,25 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 
 			$messages[ $this->post_type ] = $cpt_messages;
 			return $messages;
+		}
+
+		/**
+		 * Custom bulk actions messages for this post type
+		 * @author	Neil Lowden
+		 *
+		 * @param  array  $bulk_messages  Array of messages
+		 * @param  array  $bulk_counts    Array of counts under keys 'updated', 'locked', 'deleted', 'trashed' and 'untrashed'
+		 * @return array                  Modified array of messages
+		 */
+		function bulk_messages( $bulk_messages, $bulk_counts ) {
+			$bulk_messages[ $this->post_type ] = array(
+				'updated'   => sprintf( _n( '%1$s %2$s updated.', '%1$s %3$s updated.', $bulk_counts['updated'], 'cpt-core' ), $bulk_counts['updated'], $this->singular, $this->plural ),
+				'locked'    => sprintf( _n( '%1$s %2$s not updated, somebody is editing it.', '%1$s %3$s not updated, somebody is editing them.', $bulk_counts['locked'], 'cpt-core' ), $bulk_counts['locked'], $this->singular, $this->plural ),
+				'deleted'   => sprintf( _n( '%1$s %2$s permanently deleted.', '%1$s %3$s permanently deleted.', $bulk_counts['deleted'], 'cpt-core' ), $bulk_counts['deleted'], $this->singular, $this->plural ),
+				'trashed'   => sprintf( _n( '%1$s %2$s moved to the Trash.', '%1$s %3$s moved to the Trash.', $bulk_counts['trashed'], 'cpt-core' ), $bulk_counts['trashed'], $this->singular, $this->plural ),
+				'untrashed' => sprintf( _n( '%1$s %2$s restored from the Trash.', '%1$s %3$s restored from the Trash.', $bulk_counts['untrashed'], 'cpt-core' ), $bulk_counts['untrashed'], $this->singular, $this->plural ),
+			);
+			return $bulk_messages;
 		}
 
 		/**
