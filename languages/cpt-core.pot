@@ -1,123 +1,159 @@
-# Copyright (C) 2014 
-# This file is distributed under the same license as the  package.
+# Copyright (C) 2016 WebDevStudios.com
+# This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: WDS CPT Core 1.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/CPT_Core\n"
-"POT-Creation-Date: 2014-11-24 20:33:12+00:00\n"
+"POT-Creation-Date: 2016-09-14 01:02:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
 
-#: CPT_Core.php:65 CPT_Core.php:69 CPT_Core.php:73
+#: CPT_Core.php:77 CPT_Core.php:81 CPT_Core.php:85
 msgid "It is required to pass a single, plural and slug string to CPT_Core"
 msgstr ""
 
-#: CPT_Core.php:122 CPT_Core.php:123
+#: CPT_Core.php:134 CPT_Core.php:135
 msgid "Add New %s"
 msgstr ""
 
-#: CPT_Core.php:124
+#: CPT_Core.php:136
 msgid "Edit %s"
 msgstr ""
 
-#: CPT_Core.php:125
+#: CPT_Core.php:137
 msgid "New %s"
 msgstr ""
 
-#: CPT_Core.php:126
+#: CPT_Core.php:138
 msgid "All %s"
 msgstr ""
 
-#: CPT_Core.php:127
+#: CPT_Core.php:139
 msgid "View %s"
 msgstr ""
 
-#: CPT_Core.php:128
+#: CPT_Core.php:140
 msgid "Search %s"
 msgstr ""
 
-#: CPT_Core.php:129
+#: CPT_Core.php:141
 msgid "No %s"
 msgstr ""
 
-#: CPT_Core.php:130
+#: CPT_Core.php:142
 msgid "No %s found in Trash"
 msgstr ""
 
-#: CPT_Core.php:131
+#: CPT_Core.php:143
 msgid "Parent %s:"
 msgstr ""
 
-#: CPT_Core.php:180
+#: CPT_Core.php:145
+msgid "Insert into %s"
+msgstr ""
+
+#: CPT_Core.php:146
+msgid "Uploaded to this %s"
+msgstr ""
+
+#: CPT_Core.php:147
+msgid "%s list"
+msgstr ""
+
+#: CPT_Core.php:148
+msgid "%s list navigation"
+msgstr ""
+
+#: CPT_Core.php:149
+msgid "Filter %s list"
+msgstr ""
+
+#: CPT_Core.php:199
 msgid "Custom field updated."
 msgstr ""
 
-#: CPT_Core.php:181
+#: CPT_Core.php:200
 msgid "Custom field deleted."
 msgstr ""
 
-#: CPT_Core.php:182 CPT_Core.php:199
+#: CPT_Core.php:201 CPT_Core.php:218
 msgid "%1$s updated."
 msgstr ""
 
-#: CPT_Core.php:184
+#: CPT_Core.php:203
 #. translators: %s: date and time of the revision
 msgid "%1$s restored to revision from %2$s"
 msgstr ""
 
-#: CPT_Core.php:185
+#: CPT_Core.php:204
 msgid "%1$s saved."
 msgstr ""
 
-#: CPT_Core.php:190
+#: CPT_Core.php:209
 msgid "%1$s updated. <a href=\"%2$s\">View %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:191
+#: CPT_Core.php:210
 msgid "%1$s published. <a href=\"%2$s\">View %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:192
+#: CPT_Core.php:211
 msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:194
+#: CPT_Core.php:213
 #. translators: Publish box date format, see http:php.net/date
 msgid ""
 "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" "
 "href=\"%3$s\">Preview %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:194 CPT_Core.php:203
+#: CPT_Core.php:213 CPT_Core.php:222
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: CPT_Core.php:195
+#: CPT_Core.php:214
 msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:200
+#: CPT_Core.php:219
 msgid "%1$s published."
 msgstr ""
 
-#: CPT_Core.php:201
+#: CPT_Core.php:220
 msgid "%1$s submitted."
 msgstr ""
 
-#: CPT_Core.php:203
+#: CPT_Core.php:222
 #. translators: Publish box date format, see http:php.net/date
 msgid "%1$s scheduled for: <strong>%2$s</strong>."
 msgstr ""
 
-#: CPT_Core.php:204
+#: CPT_Core.php:223
 msgid "%1$s draft updated."
 msgstr ""
 
-#: CPT_Core.php:253
+#: CPT_Core.php:272
 msgid "%s Title"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WDS CPT Core"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://webdevstudios.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "CPT registration starter class"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WebDevStudios.com"
 msgstr ""
