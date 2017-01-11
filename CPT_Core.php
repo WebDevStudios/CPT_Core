@@ -24,7 +24,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 	class CPT_Core {
 
 		/**
-		 * Singlur CPT label
+		 * Singular CPT label
 		 * @var string
 		 */
 		protected $singular;
@@ -186,10 +186,10 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		}
 
 		/**
-		 * Modies CPT based messages to include our CPT labels
+		 * Modifies CPT based messages to include our CPT labels
 		 * @since  0.1.0
 		 * @param  array  $messages Array of messages
-		 * @return array            Modied messages array
+		 * @return array            Modified messages array
 		 */
 		public function messages( $messages ) {
 			global $post, $post_ID;
@@ -283,7 +283,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		 * Filter CPT title entry placeholder text
 		 * @since  0.1.0
 		 * @param  string $title Original placeholder text
-		 * @return string        Modifed placeholder text
+		 * @return string        Modified placeholder text
 		 */
 		public function title( $title ){
 
