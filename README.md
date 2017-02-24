@@ -5,7 +5,7 @@ A tool to make custom post type registration just a bit simpler. Automatically r
 
 Also see [Taxonomy_Core](https://github.com/jtsternberg/Taxonomy_Core).
 
-#### Example Usage:
+#### The simple way:
 ```php
 <?php
 
@@ -22,9 +22,19 @@ register_via_cpt_core( array(
 	__( 'Q & As', 'your-text-domain' ), // Plural
 	'q-and-a-items' // Registered name/slug
 ) );
+```
+
+#### The object-oriented way!
+```php
+<?php
 
 /**
- * OR create a CPT child class for utilizing built-in methods, like CPT_Core::columns, and CPT_Core::columns_display
+ * Load CPT_Core.
+ */
+require_once 'CPT_Core/CPT_Core.php';
+
+/**
+ * Creating a custom class allows you to override core methods, like CPT_Core::columns, and CPT_Core::columns_display
  */
 class Actress_CPT extends CPT_Core {
 
