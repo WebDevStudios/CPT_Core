@@ -182,8 +182,9 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			// Register our CPT
 			$args = register_post_type( $this->post_type, $this->get_args() );
 			// If error, yell about it.
-			if ( is_wp_error( $args ) )
+			if ( is_wp_error( $args ) ) {
 				wp_die( $args->get_error_message() );
+			}
 
 			// Success. Set args to what WP returns
 			$this->cpt_args = $args;
