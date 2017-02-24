@@ -3,7 +3,7 @@
 Plugin Name: WDS CPT Core
 Plugin URI: http://webdevstudios.com
 Description: CPT registration starter class
-Version: 1.0.1
+Version: 1.0.2
 Author: WebDevStudios.com
 Author URI: http://webdevstudios.com
 License: GPLv2
