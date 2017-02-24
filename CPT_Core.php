@@ -330,7 +330,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		 * @return mixed             Specific CPT_Core object or array of all
 		 */
 		public static function post_types( $post_type = '' ) {
-			if ( $post_type === true && ! empty( self::$custom_post_types ) ) {
+			if ( true === $post_type && ! empty( self::$custom_post_types ) ) {
 				return array_keys( self::$custom_post_types );
 			}
 			return isset( self::$custom_post_types[ $post_type ] ) ? self::$custom_post_types[ $post_type ] : self::$custom_post_types;
