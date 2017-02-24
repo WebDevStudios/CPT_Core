@@ -286,7 +286,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		 * @since  0.1.0
 		 *
 		 * @param array $column  Array of registered column names
-		 * @param int    $post_id The Post ID
+		 * @param int   $post_id The Post ID
 		 */
 		public function columns_display( $column, $post_id ) {
 			// placeholder
@@ -298,11 +298,12 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		 * @param  string $title Original placeholder text
 		 * @return string        Modifed placeholder text
 		 */
-		public function title( $title ){
+		public function title( $title ) {
 
 			$screen = get_current_screen();
-			if ( isset( $screen->post_type ) && $screen->post_type == $this->post_type )
+			if ( isset( $screen->post_type ) && $screen->post_type == $this->post_type ) {
 				return sprintf( __( '%s Title', 'cpt-core' ), $this->singular );
+			}
 
 			return $title;
 		}
