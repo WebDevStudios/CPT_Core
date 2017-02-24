@@ -106,8 +106,11 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 
 		/**
 		 * Gets the requested CPT argument
+		 *
+		 * @param array $arg
+		 *
 		 * @since  0.2.1
-		 * @return array  CPT argument
+		 * @return array|false  CPT argument
 		 */
 		public function get_arg( $arg ) {
 			$args = $this->get_args();
@@ -117,6 +120,8 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			if ( is_array( $args ) && isset( $args[ $arg ] ) ) {
 				return $args[ $arg ];
 			}
+
+			return false;
 		}
 
 		/**
