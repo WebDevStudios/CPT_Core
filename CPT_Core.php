@@ -107,7 +107,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		/**
 		 * Gets the requested CPT argument
 		 *
-		 * @param array $arg
+		 * @param string $arg
 		 *
 		 * @since  0.2.1
 		 * @return array|false  CPT argument
