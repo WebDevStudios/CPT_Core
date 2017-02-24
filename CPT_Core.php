@@ -311,8 +311,8 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		/**
 		 * Provides access to protected class properties.
 		 * @since  0.2.0
-		 * @param  boolean $key Specific CPT parameter to return
-		 * @return mixed        Specific CPT parameter or array of singular, plural and registered name
+		 * @param  string $key Specific CPT parameter to return
+		 * @return mixed       Specific CPT parameter or array of singular, plural and registered name
 		 */
 		public function post_type( $key = 'post_type' ) {
 
