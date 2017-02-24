@@ -202,7 +202,6 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		public function messages( $messages ) {
 			global $post, $post_ID;
 
-
 			$cpt_messages = array(
 				0 => '', // Unused. Messages start at index 1.
 				2 => __( 'Custom field updated.' ),
@@ -269,8 +268,11 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 
 		/**
 		 * Registers which columns are sortable. To be overridden by an extended class.
+		 *
 		 * @since  0.1.0
-		 * @param  array  $columns Array of registered column keys => data-identifier
+		 *
+		 * @param  array $sortable_columns Array of registered column keys => data-identifier
+		 *
 		 * @return array           Modified array
 		 */
 		public function sortable_columns( $sortable_columns ) {
@@ -280,8 +282,11 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 
 		/**
 		 * Handles admin column display. To be overridden by an extended class.
+		 *
 		 * @since  0.1.0
-		 * @param  array  $column Array of registered column names
+		 *
+		 * @param array $column  Array of registered column names
+		 * @param int    $post_id The Post ID
 		 */
 		public function columns_display( $column, $post_id ) {
 			// placeholder
