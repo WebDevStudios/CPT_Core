@@ -154,7 +154,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 				'uploaded_to_this_item' => sprintf( __( 'Uploaded to this %s', 'cpt-core' ), strtolower( $this->singular ) ),
 				'items_list'            => sprintf( __( '%s list', 'cpt-core' ), $this->plural ),
 				'items_list_navigation' => sprintf( __( '%s list navigation', 'cpt-core' ), $this->plural ),
-				'filter_items_list'     => sprintf( __( 'Filter %s list', 'credit-helper-elite' ), strtolower( $this->plural ) )
+				'filter_items_list'     => sprintf( __( 'Filter %s list', 'credit-helper-elite' ), strtolower( $this->plural ) ),
 			);
 
 			// Set default CPT parameters
