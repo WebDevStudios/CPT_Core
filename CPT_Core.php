@@ -130,8 +130,10 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		 * @return array  CPT arguments array
 		 */
 		public function get_args() {
-			if ( ! empty( $this->cpt_args ) )
+
+			if ( ! empty( $this->cpt_args ) ) {
 				return $this->cpt_args;
+			}
 
 			// Generate CPT labels
 			$labels = array(
