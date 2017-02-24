@@ -86,7 +86,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			}
 
 			$this->singular  = $cpt[0];
-			$this->plural    = ! isset( $cpt[1] ) || ! is_string( $cpt[1] ) ? $cpt[0] .'s' : $cpt[1];
+			$this->plural    = ! isset( $cpt[1] ) || ! is_string( $cpt[1] ) ? $cpt[0] . 's' : $cpt[1];
 			$this->post_type = ! isset( $cpt[2] ) || ! is_string( $cpt[2] ) ? sanitize_title( $this->plural ) : $cpt[2];
 
 			$this->arg_overrides = (array) $arg_overrides;
@@ -96,8 +96,8 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			add_action( 'init', array( $this, 'register_post_type' ) );
 			add_filter( 'post_updated_messages', array( $this, 'messages' ) );
 			add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_messages' ), 10, 2 );
-			add_filter( 'manage_edit-'. $this->post_type .'_columns', array( $this, 'columns' ) );
-			add_filter( 'manage_edit-'. $this->post_type .'_sortable_columns', array( $this, 'sortable_columns' ) );
+			add_filter( 'manage_edit-' . $this->post_type . '_columns', array( $this, 'columns' ) );
+			add_filter( 'manage_edit-' . $this->post_type . '_sortable_columns', array( $this, 'sortable_columns' ) );
 			// Different column registration for pages/posts
 			$h = isset( $arg_overrides['hierarchical'] ) && $arg_overrides['hierarchical'] ? 'pages' : 'posts';
 			add_action( "manage_{$h}_custom_column", array( $this, 'columns_display' ), 10, 2 );
