@@ -1,14 +1,14 @@
-# Copyright (C) 2016 WebDevStudios.com
+# Copyright (C) 2017 WebDevStudios.com
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: WDS CPT Core 1.0.1\n"
+"Project-Id-Version: WDS CPT Core 1.0.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/CPT_Core\n"
-"POT-Creation-Date: 2016-09-14 01:02:52+00:00\n"
+"POT-Creation-Date: 2017-02-24 20:31:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
@@ -17,128 +17,158 @@ msgstr ""
 msgid "It is required to pass a single, plural and slug string to CPT_Core"
 msgstr ""
 
-#: CPT_Core.php:134 CPT_Core.php:135
+#: CPT_Core.php:142 CPT_Core.php:143
 msgid "Add New %s"
 msgstr ""
 
-#: CPT_Core.php:136
+#: CPT_Core.php:144
 msgid "Edit %s"
 msgstr ""
 
-#: CPT_Core.php:137
+#: CPT_Core.php:145
 msgid "New %s"
 msgstr ""
 
-#: CPT_Core.php:138
+#: CPT_Core.php:146
 msgid "All %s"
 msgstr ""
 
-#: CPT_Core.php:139
+#: CPT_Core.php:147
 msgid "View %s"
 msgstr ""
 
-#: CPT_Core.php:140
+#: CPT_Core.php:148
 msgid "Search %s"
 msgstr ""
 
-#: CPT_Core.php:141
+#: CPT_Core.php:149
 msgid "No %s"
 msgstr ""
 
-#: CPT_Core.php:142
+#: CPT_Core.php:150
 msgid "No %s found in Trash"
 msgstr ""
 
-#: CPT_Core.php:143
+#: CPT_Core.php:151
 msgid "Parent %s:"
 msgstr ""
 
-#: CPT_Core.php:145
+#: CPT_Core.php:153
 msgid "Insert into %s"
 msgstr ""
 
-#: CPT_Core.php:146
+#: CPT_Core.php:154
 msgid "Uploaded to this %s"
 msgstr ""
 
-#: CPT_Core.php:147
+#: CPT_Core.php:155
 msgid "%s list"
 msgstr ""
 
-#: CPT_Core.php:148
+#: CPT_Core.php:156
 msgid "%s list navigation"
 msgstr ""
 
-#: CPT_Core.php:149
+#: CPT_Core.php:157
 msgid "Filter %s list"
 msgstr ""
 
-#: CPT_Core.php:199
+#: CPT_Core.php:207
 msgid "Custom field updated."
 msgstr ""
 
-#: CPT_Core.php:200
+#: CPT_Core.php:208
 msgid "Custom field deleted."
 msgstr ""
 
-#: CPT_Core.php:201 CPT_Core.php:218
+#: CPT_Core.php:209 CPT_Core.php:226
 msgid "%1$s updated."
 msgstr ""
 
-#: CPT_Core.php:203
+#: CPT_Core.php:211
 #. translators: %s: date and time of the revision
 msgid "%1$s restored to revision from %2$s"
 msgstr ""
 
-#: CPT_Core.php:204
+#: CPT_Core.php:212
 msgid "%1$s saved."
 msgstr ""
 
-#: CPT_Core.php:209
+#: CPT_Core.php:217
 msgid "%1$s updated. <a href=\"%2$s\">View %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:210
+#: CPT_Core.php:218
 msgid "%1$s published. <a href=\"%2$s\">View %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:211
+#: CPT_Core.php:219
 msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:213
+#: CPT_Core.php:221
 #. translators: Publish box date format, see http:php.net/date
 msgid ""
 "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" "
 "href=\"%3$s\">Preview %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:213 CPT_Core.php:222
+#: CPT_Core.php:221 CPT_Core.php:230
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: CPT_Core.php:214
+#: CPT_Core.php:222
 msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %1$s</a>"
 msgstr ""
 
-#: CPT_Core.php:219
+#: CPT_Core.php:227
 msgid "%1$s published."
 msgstr ""
 
-#: CPT_Core.php:220
+#: CPT_Core.php:228
 msgid "%1$s submitted."
 msgstr ""
 
-#: CPT_Core.php:222
+#: CPT_Core.php:230
 #. translators: Publish box date format, see http:php.net/date
 msgid "%1$s scheduled for: <strong>%2$s</strong>."
 msgstr ""
 
-#: CPT_Core.php:223
+#: CPT_Core.php:231
 msgid "%1$s draft updated."
 msgstr ""
 
-#: CPT_Core.php:272
+#: CPT_Core.php:249
+msgid "%1$s %2$s updated."
+msgid_plural "%1$s %3$s updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: CPT_Core.php:250
+msgid "%1$s %2$s not updated, somebody is editing it."
+msgid_plural "%1$s %3$s not updated, somebody is editing them."
+msgstr[0] ""
+msgstr[1] ""
+
+#: CPT_Core.php:251
+msgid "%1$s %2$s permanently deleted."
+msgid_plural "%1$s %3$s permanently deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: CPT_Core.php:252
+msgid "%1$s %2$s moved to the Trash."
+msgid_plural "%1$s %3$s moved to the Trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: CPT_Core.php:253
+msgid "%1$s %2$s restored from the Trash."
+msgid_plural "%1$s %3$s restored from the Trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: CPT_Core.php:305
 msgid "%s Title"
 msgstr ""
 
