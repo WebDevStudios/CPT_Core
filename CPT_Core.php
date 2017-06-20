@@ -102,6 +102,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			$h = isset( $arg_overrides['hierarchical'] ) && $arg_overrides['hierarchical'] ? 'pages' : 'posts';
 			add_action( "manage_{$h}_custom_column", array( $this, 'columns_display' ), 10, 2 );
 			add_filter( 'enter_title_here', array( $this, 'title' ) );
+			add_action( 'dashboard_glance_items', array( $this, 'list_post_types_at_glance_block' ), 10, 1 );
 		}
 
 		/**
@@ -358,6 +359,56 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 			$locale = apply_filters( 'plugin_locale', get_locale(), 'cpt-core' );
 			$mofile = dirname( __FILE__ ) . '/languages/cpt-core-' . $locale . '.mo';
 			load_textdomain( 'cpt-core', $mofile );
+		}
+
+		/**
+		 * Adds list of post types which were created with CPT core in Dashboard "At a glance" widget.
+		 * @since  1.0.2
+		 * @author Pavel Korotenko
+		 *
+		 * @param array $items Items of the widget.
+		 * @return array $items Modified array of items.
+		 */
+		public function list_post_types_at_glance_block( $items = array() ) {
+
+			// Number of times CPT Core was registered.
+			static $number = 0;
+
+			// Execute this function only on the first CPT registration.
+			if ( $number > 0 ) {
+				return $items;
+			}
+
+			// Get all post types generated with CPT core.
+			$post_types = $this->post_types();
+
+			foreach ( $post_types as $type ) {
+				// Count posts number for each post type.
+				$posts_number = wp_count_posts( $type->post_type );
+
+				// Check if there are published posts.
+				if ( $posts_number && property_exists( $posts_number, 'publish' ) ) {
+					$published = intval( $posts_number->publish );
+
+					$text = _n( '%s ' . $type->singular, '%s ' . $type->plural, $published, 'cpt-core' );
+					$text = sprintf( $text, number_format_i18n( $published ) );
+
+					// Get WP Post type object, so we can check user capabilities for it.
+					$post_type = get_post_type_object( $type->post_type );
+
+					// Modify widget output with these custom strings.
+					if ( current_user_can( $post_type->cap->edit_posts ) ) {
+							$items[] = sprintf( '%2$s', $type->singular, '<a href="' . admin_url() . 'edit.php?post_type=' . $type->post_type . '">' . $text . '</a>' ) . "\n";
+					} else {
+							$items[] = sprintf( '<span class="%1$s-count">%2$s</span>', $type->singular, $text ) . "\n";
+					}
+				}
+			}
+
+			// Increase a counter.
+			$number++;
+
+			return $items;
 		}
 
 	}
