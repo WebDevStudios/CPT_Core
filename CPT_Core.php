@@ -11,6 +11,9 @@ Domain: cpt-core
 Path: languages
 */
 
+// Our namespace.
+namespace WebDevStudios\CPT_Core;
+
 if ( ! class_exists( 'CPT_Core' ) ) :
 
 	/**
@@ -371,7 +374,7 @@ if ( ! class_exists( 'CPT_Core' ) ) :
 		 * @return CPT_Core                An instance of the class.
 		 */
 		function register_via_cpt_core( $cpt, $arg_overrides = array() ) {
-			return new CPT_Core( $cpt, $arg_overrides );
+			return new WebDevStudios\CPT_Core( $cpt, $arg_overrides );
 		}
 	}
 
