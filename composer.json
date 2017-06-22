@@ -1,5 +1,5 @@
 {
-    "name": "webdevstudios/cpt-core",
+    "name": "webdevstudios/cpt_core",
     "description": "WordPress Custom Post Type OO wrapper",
     "license": "GPLv2",
     "authors": [
@@ -16,8 +16,7 @@
     "support": {
         "issues": "https://github.com/WebDevStudios/CPT_Core/issues"
     },
-    "require": {},
-    "suggest": {
+    "require": {
         "composer/installers": "~1.0"
     },
     "autoload": {
