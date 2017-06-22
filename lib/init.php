@@ -19,7 +19,7 @@ Path: languages
  * Text Domain: cpt-core
  * Domain Path: /languages
  */
-abstract class CPT_Core {
+class CPT_Core {
 
 	/**
 	 * Singular CPT label
