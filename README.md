@@ -5,6 +5,9 @@ A tool to make custom post type registration just a bit simpler. Automatically r
 
 Also see [Taxonomy_Core](https://github.com/jtsternberg/Taxonomy_Core).
 
+## IMPORTANT UPGRADE INFORMATION
+Please note, that library initiation method had been changed since 1.0.3 version. Now you need to hook to cpt_core_load action to work with CPT Core methods.
+
 #### The simple way:
 ```php
 <?php
@@ -14,14 +17,18 @@ Also see [Taxonomy_Core](https://github.com/jtsternberg/Taxonomy_Core).
  */
 require_once 'CPT_Core/CPT_Core.php';
 
-/**
- * Will register a 'Q & A' CPT
- */
-register_via_cpt_core( array(
-	__( 'Q & A', 'your-text-domain' ), // Singular
-	__( 'Q & As', 'your-text-domain' ), // Plural
-	'q-and-a-items' // Registered name/slug
-) );
+function myprefix_register_cpt_demo() {
+	/**
+	 * Will register a 'Q & A' CPT
+	 */
+	register_via_cpt_core( array(
+		__( 'Q & A', 'your-text-domain' ), // Singular
+		__( 'Q & As', 'your-text-domain' ), // Plural
+		'q-and-a-items' // Registered name/slug
+	) );
+}
+
+add_action( 'cpt_core_load', 'myprefix_register_cpt_demo', CPT_CORE_LOADED + 1 );
 ```
 
 #### The object-oriented way!
