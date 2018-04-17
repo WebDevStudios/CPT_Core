@@ -5,6 +5,8 @@ A tool to make custom post type registration just a bit simpler. Automatically r
 
 Also see [Taxonomy_Core](https://github.com/jtsternberg/Taxonomy_Core).
 
+<a href="https://webdevstudios.com/contact/"><img src="https://webdevstudios.com/wp-content/uploads/2018/04/wds-github-banner.png" alt="WebDevStudios. WordPress for big brands."></a>
+
 #### The simple way:
 ```php
 <?php
